@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Random Word Generator</title>
+<title>Get Key</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,7 +14,6 @@
     --surface-2: #16213a;
     --border: #1e2b44;
     --border-2: #2a3b5c;
-    --border-focus: #3b82f6;
     --text: #e6edf7;
     --text-muted: #8b9cc0;
     --text-subtle: #5a6b8c;
@@ -37,13 +36,13 @@
     padding: 3rem 1.5rem;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     -webkit-font-smoothing: antialiased;
   }
 
   .container {
     width: 100%;
-    max-width: 560px;
+    max-width: 520px;
   }
 
   header {
@@ -68,102 +67,12 @@
     line-height: 1.5;
   }
 
-  /* ---- Config toggle ---- */
-  .config-toggle {
-    display: block;
-    margin: 0 auto 1.5rem;
-    background: transparent;
-    border: 1px solid transparent;
-    color: var(--text-subtle);
-    font-family: inherit;
-    font-size: 0.8rem;
-    cursor: pointer;
-    padding: 0.45rem 0.9rem;
-    border-radius: 8px;
-    transition: all 0.15s;
-  }
-
-  .config-toggle:hover {
-    color: var(--blue-bright);
-    background: rgba(59, 130, 246, 0.08);
-    border-color: rgba(59, 130, 246, 0.2);
-  }
-
-  /* ---- Config panel ---- */
-  .config {
-    display: none;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.5);
-    animation: fadeIn 0.2s ease-out;
-  }
-
-  .config.open { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .config-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    color: var(--blue-bright);
-    margin-bottom: 0.65rem;
-    display: block;
-  }
-
-  textarea {
-    width: 100%;
-    min-height: 130px;
-    padding: 0.85rem 1rem;
-    font-size: 0.9rem;
-    font-family: inherit;
-    color: var(--text);
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    outline: none;
-    resize: vertical;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    line-height: 1.6;
-  }
-
-  textarea::placeholder { color: var(--text-subtle); }
-
-  textarea:focus {
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 3px var(--blue-glow);
-    background: var(--bg-2);
-  }
-
-  .config-hint {
-    font-size: 0.78rem;
-    color: var(--text-subtle);
-    margin-top: 0.65rem;
-    line-height: 1.5;
-  }
-
-  .config-status {
-    font-size: 0.78rem;
-    color: var(--blue-bright);
-    margin-top: 0.5rem;
-    font-variant-numeric: tabular-nums;
-    font-weight: 500;
-  }
-
-  /* ---- Generate area ---- */
   .generate-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    padding: 2.75rem 1.5rem;
+    gap: 1.75rem;
+    padding: 3rem 1.5rem;
     background:
       linear-gradient(180deg, rgba(59, 130, 246, 0.06) 0%, transparent 100%),
       var(--surface);
@@ -189,7 +98,7 @@
   }
 
   .result-display {
-    min-height: 80px;
+    min-height: 90px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,7 +108,7 @@
   }
 
   .result-word {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
     font-weight: 700;
     letter-spacing: -0.03em;
     word-break: break-word;
@@ -218,7 +127,7 @@
   }
 
   .result-placeholder {
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: 300;
     color: var(--text-subtle);
     letter-spacing: 0.05em;
@@ -226,10 +135,10 @@
 
   .generate-btn {
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.01em;
-    padding: 0.9rem 2.25rem;
+    padding: 0.95rem 2.5rem;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.18s ease;
@@ -254,122 +163,69 @@
     box-shadow: 0 4px 12px -4px var(--blue-glow);
   }
 
-  .generate-btn:disabled {
-    background: var(--surface-2);
-    border-color: var(--border);
-    color: var(--text-subtle);
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-  }
-
-  .empty-note {
-    font-size: 0.82rem;
-    color: var(--text-subtle);
-    text-align: center;
-  }
-
   @media (max-width: 480px) {
     body { padding: 2rem 1rem; }
     h1 { font-size: 1.4rem; }
-    .result-word { font-size: 1.9rem; }
-    .generate-area { padding: 2rem 1rem; }
+    .result-word { font-size: 2rem; }
+    .generate-area { padding: 2.25rem 1rem; }
   }
 </style>
 </head>
 <body>
 <div class="container">
   <header>
-    <h1>Random Word</h1>
-    <p class="subtitle">Click to generate a random word from your list.</p>
+    <h1>Key</h1>
+    <p class="subtitle">Click the button to generate a key.</p>
   </header>
-
-  <button class="config-toggle" id="configToggle">⚙ Configure list</button>
-
-  <div class="config" id="configPanel">
-    <label class="config-label" for="wordList">Words (one per line)</label>
-    <textarea id="wordList" placeholder="apple&#10;banana&#10;cherry&#10;dragonfruit"></textarea>
-    <p class="config-hint">Each line is one entry. Blank lines are ignored.</p>
-    <p class="config-status" id="configStatus">0 words ready</p>
-  </div>
 
   <div class="generate-area">
     <div class="result-display" id="resultDisplay">
       <span class="result-placeholder">—</span>
     </div>
     <button class="generate-btn" id="generateBtn">Generate word</button>
-    <p class="empty-note" id="emptyNote" style="display:none;">Add some words in the config above first.</p>
   </div>
 </div>
 
 <script>
-(function () {
-  const wordListEl = document.getElementById('wordList');
-  const configPanel = document.getElementById('configPanel');
-  const configToggle = document.getElementById('configToggle');
-  const configStatus = document.getElementById('configStatus');
-  const resultDisplay = document.getElementById('resultDisplay');
-  const generateBtn = document.getElementById('generateBtn');
-  const emptyNote = document.getElementById('emptyNote');
+  // ============================================================
+  //  CONFIGURATION — edit your word list here
+  // ============================================================
+  const WORDS = [
+    'apple',
+    'banana',
+    'cherry',
+    'dragonfruit',
+    'elderberry',
+    'fig',
+    'grape',
+    'honeydew'
+  ];
+  // ============================================================
 
-  const STORAGE_KEY = 'random-word-list';
+  (function () {
+    const resultDisplay = document.getElementById('resultDisplay');
+    const generateBtn = document.getElementById('generateBtn');
 
-  function getWords() {
-    return wordListEl.value
-      .split('\n')
-      .map(w => w.trim())
-      .filter(w => w.length > 0);
-  }
+    function generateWord() {
+      if (!WORDS.length) {
+        resultDisplay.innerHTML = '<span class="result-placeholder">No words configured</span>';
+        return;
+      }
 
-  function updateStatus() {
-    const count = getWords().length;
-    configStatus.textContent = `${count} ${count === 1 ? 'word' : 'words'} ready`;
-    generateBtn.disabled = count === 0;
-    emptyNote.style.display = count === 0 ? 'block' : 'none';
-  }
+      const pick = WORDS[Math.floor(Math.random() * WORDS.length)];
 
-  function saveWords() {
-    try { localStorage.setItem(STORAGE_KEY, wordListEl.value); }
-    catch (e) { /* ignore */ }
-  }
+      resultDisplay.innerHTML = '';
+      const span = document.createElement('span');
+      span.className = 'result-word';
+      span.textContent = pick;
+      resultDisplay.appendChild(span);
+    }
 
-  function loadWords() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved !== null) wordListEl.value = saved;
-    } catch (e) { /* ignore */ }
-  }
+    generateBtn.addEventListener('click', generateWord);
 
-  function generateWord() {
-    const words = getWords();
-    if (!words.length) return;
-
-    const pick = words[Math.floor(Math.random() * words.length)];
-
-    resultDisplay.innerHTML = '';
-    const span = document.createElement('span');
-    span.className = 'result-word';
-    span.textContent = pick;
-    resultDisplay.appendChild(span);
-  }
-
-  configToggle.addEventListener('click', () => {
-    configPanel.classList.toggle('open');
-    configToggle.textContent = configPanel.classList.contains('open')
-      ? '✕ Hide list'
-      : '⚙ Configure list';
-  });
-
-  wordListEl.addEventListener('input', () => {
-    updateStatus();
-    saveWords();
-  });
-
-  generateBtn.addEventListener('click', generateWord);
-
-  loadWords();
-  updateStatus();
-})();
+    // Disable if no words configured
+    if (!WORDS.length) generateBtn.disabled = true;
+  })();
 </script>
 </body>
 </html>
